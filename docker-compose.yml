@@ -8,8 +8,6 @@ services:
       - X_PROXY_NAME=jira.${DOMAIN}
       - X_PROXY_PORT=443
       - X_PROXY_SCHEME=https
-    ports:
-      - 8080:8080
     networks:
       - internal
       - traefik
@@ -28,8 +26,6 @@ services:
       - X_PROXY_NAME=confluence.${DOMAIN}
       - X_PROXY_PORT=443
       - X_PROXY_SCHEME=https
-    ports:
-      - 8090:8090
     networks:
       - internal
       - traefik
