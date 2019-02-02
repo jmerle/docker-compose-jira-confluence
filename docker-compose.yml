@@ -9,7 +9,6 @@ services:
       - X_PROXY_PORT=443
       - X_PROXY_SCHEME=https
     networks:
-      - internal
       - traefik
     volumes:
       - jira:/var/atlassian/jira
@@ -27,7 +26,6 @@ services:
       - X_PROXY_PORT=443
       - X_PROXY_SCHEME=https
     networks:
-      - internal
       - traefik
     volumes:
       - confluence:/var/atlassian/confluence
@@ -43,7 +41,7 @@ services:
       - POSTGRES_USER=atlassian
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     networks:
-      - internal
+      - traefik
     volumes:
       - postgres:/var/lib/postgresql/data
       - ./postgres:/docker-entrypoint-initdb.d
@@ -53,7 +51,6 @@ volumes:
   confluence:
   postgres:
 networks:
-  internal:
   traefik:
     name: ${TRAEFIK_NETWORK}
     external: true
