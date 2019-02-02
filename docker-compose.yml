@@ -1,13 +1,13 @@
 version: '3.5'
 services:
   jira:
-    image: cptactionhank/atlassian-jira-software
+    image: blacklabelops/jira
     depends_on:
       - postgres
     environment:
-      - X_PROXY_NAME=jira.${DOMAIN}
-      - X_PROXY_PORT=443
-      - X_PROXY_SCHEME=https
+      - JIRA_PROXY_NAME=jira.${DOMAIN}
+      - JIRA_PROXY_PORT=443
+      - JIRA_PROXY_SCHEME=https
     networks:
       - traefik
     volumes:
@@ -18,13 +18,13 @@ services:
       traefik.frontend.rule: "Host:jira.${DOMAIN}"
     restart: unless-stopped
   confluence:
-    image: cptactionhank/atlassian-confluence
+    image: blacklabelops/confluence
     depends_on:
       - postgres
     environment:
-      - X_PROXY_NAME=confluence.${DOMAIN}
-      - X_PROXY_PORT=443
-      - X_PROXY_SCHEME=https
+      - CONFLUENCE_PROXY_NAME=confluence.${DOMAIN}
+      - CONFLUENCE_PROXY_PORT=443
+      - CONFLUENCE_PROXY_SCHEME=https
     networks:
       - traefik
     volumes:
