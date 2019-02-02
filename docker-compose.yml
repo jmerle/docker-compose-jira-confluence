@@ -1,0 +1,63 @@
+version: '3.5'
+services:
+  jira:
+    image: cptactionhank/atlassian-jira-software
+    depends_on:
+      - postgres
+    environment:
+      - X_PROXY_NAME=jira.${DOMAIN}
+      - X_PROXY_PORT=443
+      - X_PROXY_SCHEME=https
+    ports:
+      - 8080:8080
+    networks:
+      - internal
+      - traefik
+    volumes:
+      - jira:/var/atlassian/jira
+    labels:
+      traefik.enable: true
+      traefik.port: 8080
+      traefik.frontend.rule: "Host:jira.${DOMAIN}"
+    restart: unless-stopped
+  confluence:
+    image: cptactionhank/atlassian-confluence
+    depends_on:
+      - postgres
+    environment:
+      - X_PROXY_NAME=confluence.${DOMAIN}
+      - X_PROXY_PORT=443
+      - X_PROXY_SCHEME=https
+    ports:
+      - 8090:8090
+    networks:
+      - internal
+      - traefik
+    volumes:
+      - confluence:/var/atlassian/confluence
+    labels:
+      traefik.enable: true
+      traefik.port: 8090
+      traefik.frontend.rule: "Host:confluence.${DOMAIN}"
+    restart: unless-stopped
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=jira,confluence
+      - POSTGRES_USER=atlassian
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - internal
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./postgres:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+volumes:
+  jira:
+  confluence:
+  postgres:
+networks:
+  internal:
+  traefik:
+    name: ${TRAEFIK_NETWORK}
+    external: true
