@@ -10,6 +10,9 @@ services:
       - X_PROXY_SCHEME=https
     networks:
       - traefik
+    external_links:
+      - ${TRAEFIK_CONTAINER}:jira.${DOMAIN}
+      - ${TRAEFIK_CONTAINER}:confluence.${DOMAIN}
     volumes:
       - jira:/var/atlassian/jira
     labels:
@@ -27,6 +30,9 @@ services:
       - X_PROXY_SCHEME=https
     networks:
       - traefik
+    external_links:
+      - ${TRAEFIK_CONTAINER}:jira.${DOMAIN}
+      - ${TRAEFIK_CONTAINER}:confluence.${DOMAIN}
     volumes:
       - confluence:/var/atlassian/confluence
     labels:
