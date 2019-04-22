@@ -1,4 +1,4 @@
-# Docker Compose Jira Confluence
+# Traefik Jira Confluence
 
 A Docker Compose configuration to run [Jira](https://www.atlassian.com/software/jira) and [Confluence](https://www.atlassian.com/software/confluence) behind a [Traefik](https://traefik.io/) reverse proxy.
 
