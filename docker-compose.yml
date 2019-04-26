@@ -40,6 +40,7 @@ services:
       - POSTGRES_MULTIPLE_DATABASES=jira,confluence
       - POSTGRES_USER=atlassian
       - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_INITDB_ARGS=--lc-collate C --lc-ctype C.UTF-8
     networks:
       - traefik
     volumes:

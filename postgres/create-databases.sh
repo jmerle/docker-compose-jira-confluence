@@ -6,7 +6,7 @@ set -u
 function create_database() {
 	local database=$1
   echo "Creating database '$database'"
-  psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -c "CREATE DATABASE $database"
+  psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -c "CREATE DATABASE $database LC_COLLATE = 'C' LC_CTYPE = 'C.UTF8'"
 }
 
 if [ -n "$POSTGRES_MULTIPLE_DATABASES" ]; then
