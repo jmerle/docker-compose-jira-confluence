@@ -35,7 +35,7 @@ services:
       traefik.frontend.rule: "Host:confluence.${DOMAIN}"
     restart: unless-stopped
   postgres:
-    image: postgres
+    image: postgres:9.6
     environment:
       - POSTGRES_MULTIPLE_DATABASES=jira,confluence
       - POSTGRES_USER=atlassian
